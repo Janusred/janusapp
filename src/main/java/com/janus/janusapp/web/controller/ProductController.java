@@ -3,9 +3,9 @@ package com.janus.janusapp.web.controller;
 import com.janus.janusapp.domain.Product;
 import com.janus.janusapp.domain.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,16 +16,30 @@ public class ProductController {
     @Autowired
     private ProductService productService;
      @GetMapping("/all")
-    public List<Product> getAll(){
-        return productService.getAll();
+    public ResponseEntity<List<Product>> getAll(){
+
+         return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
     }
-    public Optional<List<Product>> getProduct(int categoryId){
-        return productService.getByCategory(categoryId);
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProduct (@PathVariable("id") int productId){
+         return productService.getProduct(productId)
+                 .map(product -> new ResponseEntity<>(product, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-    public Product save (Product product){
-        return productService.save(product);
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<Product>> getByCategory(@PathVariable("categoryId") int categoryId){
+         return productService.getByCategory(categoryId).map(products -> new ResponseEntity<>(products, HttpStatus.OK))
+                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-    public boolean delete(int productId){
-        return productService.delete(productId);
+     @PostMapping("/save")
+    public ResponseEntity<Product> save (Product product){
+        return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
+    }
+    public ResponseEntity delete(int productId){
+
+         if (productService.delete(productId)){
+             return new ResponseEntity(HttpStatus.OK);
+         }else {
+             return  new ResponseEntity(HttpStatus.NOT_FOUND);
+         }
     }
 }
