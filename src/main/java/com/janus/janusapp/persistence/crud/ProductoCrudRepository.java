@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface ProductoCrudRepository extends CrudRepository<Producto,Integer> {
 
     List<Producto> findByIdCategoria(int idCategoria);
-    Optional<List<Producto>> findByCantidadStocklessThanAndEstado(int cantidadStock, boolean estado);
+    Optional<List<Producto>> findByCantidadStockLessThanAndEstado(int cantidadStock, boolean estado);
 }
