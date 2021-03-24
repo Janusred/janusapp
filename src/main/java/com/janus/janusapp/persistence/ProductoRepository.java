@@ -4,6 +4,7 @@ import com.janus.janusapp.domain.repository.ProductRepository;
 import com.janus.janusapp.persistence.crud.ProductoCrudRepository;
 import com.janus.janusapp.persistence.entity.Producto;
 import com.janus.janusapp.persistence.mapper.ProductMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +13,9 @@ import java.util.Optional;
 @Repository
 
 public class ProductoRepository implements ProductRepository {
+    @Autowired
     private ProductoCrudRepository productoCrudRepository;
+    @Autowired
     private ProductMapper mapper;
     @Override
     public List<Product> getAll(){
