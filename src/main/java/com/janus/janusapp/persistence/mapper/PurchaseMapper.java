@@ -2,10 +2,10 @@ package com.janus.janusapp.persistence.mapper;
 
 
 
-import com.janus.janusapp.domain.Product;
+
 import com.janus.janusapp.domain.Purchase;
 import com.janus.janusapp.persistence.entity.Compra;
-import com.janus.janusapp.persistence.entity.Producto;
+
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

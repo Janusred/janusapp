@@ -11,6 +11,22 @@ public class ComprasProducto {
     private Double total;
     private Boolean estado;
 
+    public Compra getCompra() {
+        return compra;
+    }
+
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
     @ManyToOne
     @MapsId("compras_productos")
     @JoinColumn(name = "id_compra",insertable = false, updatable = false)
